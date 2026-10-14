@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solganeo 2026 · Démo du design system</title>
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../components/bundle.css">
+<style>
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-sans); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 128px 40px; box-sizing: border-box; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
+  .icons { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 48px; color: var(--accent); }
+  .theme { position: fixed; right: 20px; bottom: 20px; z-index: 50; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="../components/bundle.js"></script>
+<script>
+var S = window.Solganeo, h = React.createElement;
+var logo = { light: '../logos/svg/Logo_Solganeo-Light.svg', dark: '../logos/svg/Logo_Solganeo-Dark.svg', mark: '../logos/svg/Logo_Solganeo.svg' };
+function App() {
+  var st = React.useState('light'), theme = st[0], setTheme = st[1];
+  React.useEffect(function () { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  return h(React.Fragment, null,
+    h(S.NavBar, { logo: logo, active: 'Expertises' }),
+    h(S.Hero, {
+      tag: 'Partenaire Salesforce', overline: 'Conseil en transformation digitale',
+      title: 'Accélérez votre transformation digitale',
+      lead: 'Spécialiste Salesforce, Solganeo vous accompagne de la stratégie à la mise en œuvre sur vos projets CRM, Data & IA et Marketing Digital.',
+      primary: 'Prendre rendez-vous', secondary: 'Nos expertises',
+      aside: h('ul', { className: 'sg-index-list' }, ['CRM & Marketing Cloud', 'Data Management & IA', 'Digital Marketing', 'UX/UI Salesforce'].map(function (t, i) { return h('li', { key: t }, h('b', null, '0' + (i + 1)), t); }))
+    }),
+    h('main', { className: 'wrap' },
+      h(S.SectionHeader, { index: '01', overline: 'Expertises', title: 'Nos solutions pour vos enjeux business', lead: "De la stratégie à la mise en œuvre, nos experts vous accompagnent sur l'ensemble de l'écosystème Salesforce." }),
+      h('div', { className: 'cards' },
+        h(S.ServiceCard, { index: '01', title: 'CRM & Marketing Cloud', tags: ['Sales Cloud'], description: 'Optimisez vos processus commerciaux et marketing avec Salesforce Sales Cloud, Service Cloud et Marketing Cloud.' }),
+        h(S.ServiceCard, { index: '02', title: 'Data Management & IA', tags: ['Data Cloud'], description: "Exploitez la puissance de vos données avec Salesforce Einstein, Data Cloud et les solutions d'IA générative." }),
+        h(S.ServiceCard, { index: '03', title: 'Digital Marketing', tags: ['SFMC'], description: 'Construisez des parcours client personnalisés et omnicanaux grâce à Marketing Cloud Engagement.' }),
+        h(S.ServiceCard, { index: '04', title: 'UX/UI Salesforce', tags: ['Experience Cloud'], description: 'Concevez des interfaces intuitives et accessibles pour vos équipes avec Experience Cloud et LWC.' })),
+      h('div', { className: 'icons' }, ['handshake', 'groups', 'trending_up', 'analytics', 'campaign', 'rocket_launch', 'lightbulb', 'database', 'cloud', 'hub'].map(function (n) { return h(S.Icon, { key: n, name: n, size: 32, animate: 'draw', trigger: 'hover', title: n }); }))
+    ),
+    h(S.Footer, { logo: logo, tagline: 'Cabinet de conseil en transformation digitale, spécialiste Salesforce.',
+      columns: [
+        { title: 'Services', links: ['CRM & Marketing Cloud', 'Data Management & IA', 'Digital Marketing', 'UX/UI Salesforce'] },
+        { title: 'Cabinet', links: ['Notre cabinet', 'Nos valeurs', 'Partenaires', 'Certifications'] },
+        { title: 'Carrière', links: ["Offres d'emploi", 'Notre culture', 'Formation', 'Contact RH'] }],
+      legal: ['© 2026 Solganeo', 'Mentions légales', 'Politique de confidentialité'] }),
+    h('div', { className: 'theme' }, h(S.Button, { variant: 'primary', icon: theme === 'light' ? 'stars' : 'lightbulb', onClick: function () { setTheme(theme === 'light' ? 'dark' : 'light'); } }, theme === 'light' ? 'Thème sombre' : 'Thème clair'))
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

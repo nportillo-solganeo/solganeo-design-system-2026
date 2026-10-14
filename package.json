@@ -1,0 +1,15 @@
+{
+  "name": "solganeo-design-system-2026",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Design system Solganeo 2026 : tokens, typographie, logos, icônes et composants React.",
+  "type": "module",
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:bundle": "node scripts/build-bundle.mjs",
+    "build": "npm run build:tokens && npm run build:bundle"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
